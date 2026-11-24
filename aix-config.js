@@ -4,7 +4,14 @@
 window.AIX_CONFIG = {
   // Firebase 설정 (Firebase 콘솔 > 프로젝트 설정 > 내 앱 > SDK 설정의 firebaseConfig 값을 그대로 붙여 넣기)
   // 예: firebase: { apiKey: "AIza...", authDomain: "xxx.firebaseapp.com", projectId: "xxx", appId: "1:..." },
-  firebase: null,
+  firebase: {
+    apiKey: "AIzaSyCR3BqliWUDXoYajTMdNrEQXX5bAkBg9ms",
+    authDomain: "eduguide-bcf13.firebaseapp.com",
+    projectId: "eduguide-bcf13",
+    storageBucket: "eduguide-bcf13.firebasestorage.app",
+    messagingSenderId: "617879580202",
+    appId: "1:617879580202:web:f98d338fb941bf85279d53"
+  },
 
   phone: "",      // 학원 대표번호. 예: "02-000-0000" (비워 두면 "02로 시작하는 학원 번호"로 안내)
   kakao: "",      // 카카오톡 채널 채팅 링크. 예: "https://pf.kakao.com/_xxxx/chat"
