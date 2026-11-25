@@ -119,6 +119,8 @@ details.bulk>summary::after{content:"+";position:absolute;right:4px;top:-2px;fon
 details.bulk[open]>summary{margin-bottom:14px}
 @media(max-width:700px){.hstep{grid-template-columns:28px minmax(0,1fr)}.hstep>.dpills,.hstep>.chips,.hstep>.hq,.hstep>.fixd{grid-column:1/-1}.hq{flex-direction:column}.btn.big{width:100%}
  .brow{grid-template-columns:minmax(0,1fr) repeat(3,3.4em);padding:12px 14px;font-size:14px}.brow>:nth-child(4),.brow .ar{display:none}.brow .v small{display:none}.hero{padding:16px}}
+.srow{grid-template-columns:minmax(0,1.4fr) auto minmax(0,.6fr) auto!important}.sact{display:flex;gap:6px}
+@media(max-width:1100px){.srow .sact,.srow .muted{display:flex!important}}
 .tab.edt{margin-left:auto;border-style:dashed}
 .edgrid{display:grid;grid-template-columns:260px minmax(0,1fr);gap:18px;align-items:start}
 .edlist{display:grid;gap:6px;position:sticky;top:130px}
@@ -224,8 +226,101 @@ textarea{resize:vertical;line-height:1.5}
 @media(max-width:900px){.grid2{grid-template-columns:minmax(0,1fr)}.stats{grid-template-columns:repeat(3,minmax(0,1fr))}.lrow.open .ldet{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:560px){.cells{grid-template-columns:repeat(2,minmax(0,1fr))}.cell{padding:14px}.cell h3{font-size:14.5px;flex-wrap:wrap}.nums{grid-template-columns:repeat(2,minmax(0,1fr))}.cell .row{flex-direction:column}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.r3{grid-template-columns:minmax(0,1fr)}.who span.em{display:none}.filters input{min-width:0;flex:1}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* AIX editorial redesign — shared visual language */
+:root,body[data-th]{color-scheme:light;--bg:#f6f5f1;--ink:#182622;--sub:#59635e;--mut:#747d77;--line:#dcdfd8;--line2:#c4cbc2;--glass:#fff;--glass2:#eeefe9;--btnbg:#203d32;--btnfg:#fff;--hdr:rgba(246,245,241,.96);--tx2:#34433a;--inbg:#fff;--hexln:#203d32;--hexlbl:#5e6c63;--hexlbl2:#8e988f;--hexhi:#203d32;--hexhi2:#526757;--ca:#315d49;--ease:cubic-bezier(.22,1,.36,1);--f:"Pretendard",-apple-system,"Apple SD Gothic Neo",system-ui,sans-serif}
+body{background:var(--bg);color:var(--ink);letter-spacing:-.025em}
+button,a,input,select,textarea{-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid #567b62;outline-offset:4px}
+.amb,.deco{display:none!important}
+.dtop{height:76px;padding-inline:4vw;background:var(--hdr);backdrop-filter:blur(12px);border-color:var(--line);gap:24px}
+.brand,.logo{letter-spacing:-.04em;font-size:16px;font-weight:800}
+.brand:before,.logo:before{content:"";display:inline-block;width:10px;height:10px;background:#315d49;margin-right:10px;transform:rotate(-12deg)}
+.brand span{font-size:12px;margin-left:12px;color:var(--sub);font-weight:500}
+.steps{gap:2px}.steps button{font-size:12px;padding:10px 8px;color:var(--sub)}
+.steps button.on{color:var(--ink)}.steps button.on:after{background:#315d49;left:8px;right:8px;bottom:3px;height:2px}
+.cnt{font-size:12px;letter-spacing:.04em;color:var(--sub)}
+.dnav{height:84px;background:var(--hdr);border-color:var(--line);gap:24px;padding-inline:4vw}
+.prog{height:3px;background:#dde2d9}.prog i,.tline i,.result .bar i{background:#315d49}
+.nbtn{height:46px;border-radius:8px;background:transparent;border-color:var(--line2);font-size:14px}
+.nbtn.next{background:var(--btnbg);color:white;border-color:var(--btnbg)}
+.wrapx{max-width:1280px;padding:56px max(5vw,24px) 64px;justify-content:flex-start}
+.wrapx.split,.wrapx.talk{align-content:center}.wrapx.narrow{max-width:860px;padding-top:52px}
+.wrapx.center{justify-content:center}
+.split{gap:60px;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr)}
+.eyebrow{font:600 12px/1.5 var(--f);letter-spacing:.045em;color:#315d49;margin:0 0 24px}
+h1{font:750 clamp(34px,4.2vw,60px)/1.2 var(--f);letter-spacing:-.06em;margin:0 0 24px;text-wrap:balance}
+h2{font:700 clamp(27px,3.1vw,42px)/1.25 var(--f);letter-spacing:-.05em}
+.sub{font-size:16px;line-height:1.9;max-width:33em;color:var(--sub);margin-bottom:28px}
+.meta{gap:0;margin-bottom:32px}.meta span{background:none;border:0;border-right:1px solid var(--line2);border-radius:0;padding:0 12px;font-size:12px}.meta span:first-child{padding-left:0}.meta span:last-child{border:0}
+.btn{border-radius:8px;height:52px;background:var(--btnbg);color:white;border-color:var(--btnbg);font-size:14px;box-shadow:none}
+.btn:hover{box-shadow:none;background:#315d49;transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line2)}.btn.ghost:hover{background:#e9ece4}
+.btn.link{background:transparent;color:var(--sub);border-color:transparent}
+.btn.sm{height:44px}.acts{gap:10px}
+.art{width:100%}.hex{max-width:390px}.hexcap{margin-top:12px}
+.cover{position:relative;isolation:isolate;overflow:hidden;background:#203a30;color:#f8f7ef;padding:30px;min-height:430px;display:flex;flex-direction:column;box-shadow:0 24px 50px -38px #203a3070;border-radius:3px}
+.cover:after{content:"";position:absolute;right:-45px;top:76px;width:230px;height:230px;border:1px solid #ffffff16;border-radius:50%;z-index:-1}
+.cover-top{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:10px;font-weight:600;letter-spacing:.12em;color:#c6d2c8}
+.cover-top i{height:7px;width:7px;border-radius:50%;background:var(--accent,#d0d9ab);display:inline-block;margin-right:8px}
+.cover-type{font-size:clamp(42px,4.1vw,62px);letter-spacing:-.075em;line-height:.98;font-weight:650;margin:43px 0 18px}
+.cover-type span{display:block;color:#d4dfb1;font-weight:350}
+.cover-caption{font-size:13px;color:#bdcbbf;margin:0 0 32px;line-height:1.7}
+.cover-bottom{margin-top:auto;border-top:1px solid #ffffff29;padding-top:18px;display:grid;gap:10px}
+.cover-row{display:flex;gap:16px;align-items:baseline;font-size:13px}.cover-row small{font-size:10px;color:#a9bbaa;font-variant-numeric:tabular-nums}.cover-row span{flex:1}.cover-row em{font-style:normal;color:#afc1ab}
+.cover-foot{font-size:10px;letter-spacing:.08em;color:#a9bbaa;margin-top:24px}
+.tline{height:3px;margin-bottom:34px}.tq{font-size:clamp(25px,3vw,35px);line-height:1.4;letter-spacing:-.04em}
+.tq small{color:var(--sub);font-size:12px;margin-bottom:16px}
+.topt,.ch .topt{background:#fff;border:1px solid var(--line);border-radius:10px;padding:17px 20px;min-height:66px;font-size:16px;box-shadow:none}
+.topt:hover{border-color:#80957e;background:#fdfefa;transform:translateX(3px)}
+.topt.on{background:#e5ecdF;color:#1d3c2c;border-color:#547653}
+.topt .ck{border-color:#bac5b8}.topt.on .ck{background:#315d49;border-color:#315d49;color:#fff}
+.topts{gap:10px}.topt.free{border-style:dashed;background:transparent}.topt.free.on{background:#e5ecdf;color:var(--ink)}
+.tnav{margin-top:24px}.hint{color:var(--sub)}
+.rtype{background:none;color:var(--ink);-webkit-text-fill-color:currentColor}
+.fits{padding-block:8px}.ft{height:5px}.basis{background:#fff;border-color:var(--line);border-radius:8px}
+.ctabs{gap:18px;border-bottom:1px solid var(--line);padding-bottom:0;margin-bottom:36px}
+.ctab{height:45px;border:0;border-bottom:2px solid transparent;border-radius:0;background:none;padding:0 2px;font-size:14px}
+.ctab.on{background:none;color:#203d32;border-bottom-color:#203d32}.ctab:hover{color:#203d32}
+.cols,.mk{gap:16px}.col{padding:26px;background:white;border:1px solid var(--line);border-radius:9px}
+.col .k{color:#315d49;letter-spacing:.02em;font-size:12px;padding-bottom:15px;border-bottom:1px solid var(--line)}
+.col li{font-size:15px;line-height:1.7}.col li:before{height:4px;width:4px;top:18px;background:#315d49}
+.mk>div{border:0;border-top:1px solid var(--line2);border-radius:0;padding:24px 4px;background:none}
+.mk b{font-size:15px}.mk span{font-size:14px;line-height:1.8}
+.fitline{border-left:2px solid #829672;padding-left:16px;margin-top:20px;font-size:14px}
+.dlist{gap:0;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.drow{border:0;border-bottom:1px solid var(--line);border-radius:0;background:#fff;padding:22px;gap:18px}.drow:last-child{border-bottom:0}.drow.me{background:#eef2e9;border-color:var(--line)}
+.dn em{background:#315d49;font-size:10px}.dd{font-size:14px;line-height:1.8}.dt{font-size:13px}.dl{font-size:12px}
+.costs{gap:16px}.cost{padding:28px;border-radius:10px;background:white;border-color:var(--line)}
+.cost.hl{background:#e7eddc;border-color:#bdc9ab}.cost .v{font-size:27px;color:#203d32}.cost p{line-height:1.9;font-size:14px}
+.note,.src{color:var(--sub)}.note2{border-radius:8px;background:#eef1e8;border-color:var(--line)}
+summary{font-size:16px;padding-block:24px}details p{font-size:15px;line-height:1.9;max-width:64em}
+.cons{background:#fff;border:1px solid var(--line);border-radius:12px;padding:32px;box-shadow:0 16px 35px -28px #203a3050}
+.cons h3{font-size:24px}.cons p{font-size:14px;line-height:1.8}.time{border-radius:8px;background:#f8f9f5;border-color:var(--line);font-size:14px}.time:hover{background:#203d32;color:white;border-color:#203d32}
+.ways{gap:0}.ways li{border:0;border-bottom:1px solid var(--line);background:none;border-radius:0;padding:18px 0}.ways b{font-size:14px}.ways span{font-size:13px}
+.free input,input,select,textarea,.freebox textarea{border-radius:8px;background:white;border-color:var(--line2)}
+.result{background:#fff;border-color:var(--line);border-radius:12px}.result .big{color:#315d49}
+.opt{border-radius:8px;background:#fff;border-color:var(--line)}.opt.on{background:#203d32;color:white;border-color:#203d32}
+.sheet{background:#f6f5f1}.sheet button{border-radius:8px;background:white;border-color:var(--line)}.sheet button.on{background:#e5ecdf;border-color:#829672}.sheet button.done em{color:#315d49}
+.panel,.lkcard{border-radius:10px;background:white;border-color:var(--line)}.sbox{border-radius:8px}.sbox.on{background:#edf1e6;border-color:#829672}.chip{border-radius:6px}.chip.on{background:#203d32;color:white}
+.rv{animation:editorial-rise .55s var(--ease) both;animation-delay:calc(var(--i,0)*40ms)}
+@keyframes editorial-rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.scr.enter{animation:editorial-enter .35s var(--ease)}.scr.out{animation:editorial-out .25s ease forwards}
+@keyframes editorial-enter{from{opacity:0;transform:translateX(calc(var(--d,1)*16px))}to{opacity:1;transform:none}}
+@keyframes editorial-out{to{opacity:0;transform:translateX(calc(var(--d,1)*-12px))}}
+@media(min-width:1500px){.wrapx{padding-top:72px}}
+@media(max-width:1100px){.steps{display:none}.mnu{display:inline-flex}.cnt{margin-left:auto}.split{gap:32px}.cover{padding:26px}.cover-type{font-size:54px}}
+@media(max-width:860px){.wrapx{padding:36px 26px 48px}.split{grid-template-columns:minmax(0,1fr);gap:32px}.intro-layout .art{order:2;max-width:none;margin:0}.intro-layout .cover{min-height:320px}.cover-type{font-size:56px;margin:26px 0 16px}.cover-bottom{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.cover-row{align-items:flex-start;gap:8px;flex-direction:column}.cover-row em{display:none}.cover-foot{margin-top:18px}.cols,.mk,.costs{grid-template-columns:minmax(0,1fr)}.drow{grid-template-columns:minmax(0,1fr);gap:8px}}
+@media(max-width:600px){.dtop{height:62px;padding-inline:20px;gap:12px}.brand{font-size:14px}.mnu{font-size:12px}.sheet{top:62px}.wrapx,.wrapx.narrow{padding:32px 22px 40px}.intro-layout h1{font-size:37px;line-height:1.22}.sub{font-size:15px;line-height:1.85}.eyebrow{margin-bottom:20px}.meta{margin-bottom:25px}.meta span{font-size:11px}.acts{gap:8px}.acts .btn{padding-inline:16px;font-size:13px;flex:1 1 auto}.cover{padding:24px;min-height:320px}.cover-type{font-size:clamp(39px,10vw,56px)}.cover-top{font-size:9px}.cover-caption{font-size:12px;margin-bottom:24px}.cover-row{font-size:12px}.dnav{height:74px;padding-inline:20px;gap:16px}.nbtn{height:44px;font-size:12px;padding-inline:14px}.nbtn.next .lbl{max-width:12em}.tq{font-size:27px}.topt,.ch .topt{font-size:15px;padding:16px}.cons{padding:24px}.col{padding:22px}.cost{padding:24px}.ctabs{margin-bottom:24px;gap:16px}.res .art{max-width:100%}.fr{font-size:13px}.check{gap:24px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}[data-r]{opacity:1}}
+
 </style>
-</head>
+<style>
+.top{background:#f6f5f1f5;backdrop-filter:blur(12px);border-color:var(--line)}.top .bar{height:72px}.tabs{padding-bottom:12px;gap:8px}.tab{border-radius:7px;background:transparent;color:var(--sub)}.tab.on{background:#203d32;color:white;border-color:#203d32}
+.card,.box,.stat,.deptcard,.kpi{background:#fff;border-color:var(--line);border-radius:10px;box-shadow:none}.modal{background:rgba(24,38,34,.45)}.modal .box{background:#fff}.toast{background:#203d32;color:white}.dot{box-shadow:none}.wrap{max-width:1360px}.btn{border-radius:7px}.btn.danger{background:#fff4f0;color:#9d382b;border-color:#e6bab0}th{background:#eef1e9;color:#59635e}td{border-color:var(--line)}.tag{color:#48614f;border-color:#bac9b9}.empty{color:var(--sub)}
+</style><style>
+h1{font-size:32px;margin-bottom:8px}h2{font-size:20px}.hero{background:#edf1e7;border:1px solid #cbd6c1;border-radius:10px}.hq input{background:#fff;border-radius:8px}.dpill{background:#fff;border-radius:6px;color:var(--sub)}.dpill.on{background:#203d32;border-color:#203d32}.btn.big{background:#203d32;border-color:#203d32;border-radius:8px}.warn{background:#fff7e5;border-color:#e3d2a7;color:#755d24}.warn b{color:#644b17}.titem,.qa{background:#f2f4ee;border-color:var(--line);border-radius:8px}.titem .tw em,.stat.hotb b,.nums .w b{color:#9c4934}.titem .tw em.d{color:#315f7b}.cell{background:#fff;border-radius:10px}.cell:before{height:2px}.edi,.edform,.todo,.board{border-radius:10px}.edform{background:#fff}.stat{padding:20px}.stats{gap:12px}.panel{padding:24px}.toast{box-shadow:0 8px 24px #172b2920}.modal .box{border-color:#c4cbc2}.hot{color:#9c4934}.err{color:#a93225}.tab.on:hover{color:white}
+</style><style>.c3,.pv,.lk,.ans li{background:#f1f3ed;border-radius:8px}.toast{background:none}.toast div{background:#203d32;color:#fff;border-color:#365a45}.chip.on{color:#fff}.btn.danger:hover{background:#f9e5dd}</style></head>
 <body>
 <div id="app"></div>
 <div class="toast" id="toast"></div>
@@ -236,7 +331,7 @@ textarea{resize:vertical;line-height:1.5}
 const DEFAULTS = {"depts":[{"id":"ai","name":"AI 스킬업","head":"AI, 어디서부터 배워야 할지\n막막했다면","desc":"ChatGPT 같은 생성형 AI를 업무·콘텐츠·개발에 바로 쓰는 방법을 배웁니다. 코딩을 몰라도 시작할 수 있어요.","learn":["생성형 AI 기본 사용법과 질문 잘하는 법","AI로 이미지·영상·글 콘텐츠 만들기","반복 업무 자동화, 바이브코딩 기초"],"flow":["기초 활용부터 시작","분야별(업무·콘텐츠·개발) 실습","내 결과물로 마무리"],"after":["업무에 AI를 바로 적용","AI 콘텐츠 제작·부업","AI 자격증 준비"],"fit":"직장에서 AI를 써야 하는데 감이 안 오는 분, AI로 부업이나 콘텐츠를 시작하고 싶은 분","makes":[["AI 업무 자동화 세트","보고서·메일·정리를 AI로 줄이는 나만의 도구"],["AI 콘텐츠 포트폴리오","이미지·숏폼 영상 결과물 모음"],["간단한 웹페이지","바이브코딩으로 직접 만든 페이지"]]},{"id":"web","name":"웹·UIUX 디자인","head":"매일 쓰는 앱 화면,\n직접 만들어 볼까요","desc":"피그마로 앱과 웹 화면을 설계하고, 사용자가 편하게 쓰는 구조를 배웁니다. 포트폴리오까지 함께 만들어요.","learn":["포토샵·일러스트 기초","피그마로 앱·웹 화면 설계","웹 퍼블리싱, AI 바이브코딩 웹 제작"],"flow":["디자인 툴 익히기","실제 서비스처럼 화면 설계","취업용 포트폴리오 완성"],"after":["UI/UX 디자이너","웹디자이너","프리랜서 웹 제작"],"fit":"디자인에 관심은 있는데 전공은 아닌 분, 디자이너로 진로를 바꾸고 싶은 분","makes":[["앱 리디자인 프로젝트","익숙한 앱을 내 방식으로 다시 설계"],["반응형 웹사이트","PC·휴대폰에서 모두 보이는 사이트"],["포트폴리오 사이트","면접 때 보여 줄 나만의 작업 모음"]]},{"id":"video","name":"모션·영상편집","head":"보기만 하던 영상,\n이제 만드는 쪽으로","desc":"프리미어로 컷 편집과 자막을, 애프터이펙트로 움직이는 그래픽을 배웁니다. AI를 섞은 모션 작업도 다뤄요.","learn":["프리미어 컷 편집·자막·색 보정","애프터이펙트 모션그래픽","AI 융합 모션 작업"],"flow":["편집 기본기","유튜브·광고 스타일 실습","쇼릴(작업 모음 영상) 완성"],"after":["영상편집자","모션그래픽 디자이너","유튜브 채널 운영·편집 외주"],"fit":"유튜브 편집을 제대로 배우고 싶은 분, 영상 쪽으로 취업이나 부업을 생각하는 분","makes":[["유튜브 브이로그 편집","컷·자막·음악까지 한 편 완성"],["광고 모션 영상","15초 제품 광고 모션"],["쇼릴","내 작업을 1분으로 모은 영상"]]},{"id":"cg","name":"CG·특수효과","head":"영화 속 그 장면,\n어떻게 만드는지 배워요","desc":"3D 모델링부터 합성·특수효과까지, 영상과 게임에 들어가는 CG 작업을 배웁니다.","learn":["3D 모델링·재질·조명","애니메이션과 렌더링","합성·특수효과, AI 융합 작업"],"flow":["3D 툴 기초","장면 하나를 처음부터 끝까지","포트폴리오 영상 완성"],"after":["3D 아티스트","VFX(특수효과) 아티스트","게임·광고 CG 제작"],"fit":"3D나 게임·영화 CG에 관심 있는 분, 영상 편집에서 한 단계 더 가고 싶은 분","makes":[["3D 제품 광고 컷","실사처럼 보이는 제품 렌더링"],["특수효과 합성 영상","실사 영상에 CG 합성"],["캐릭터·배경 모델링","게임·영상용 3D 결과물"]]},{"id":"edit","name":"시각·편집디자인","head":"눈에 띄는 포스터 한 장,\n내 손으로","desc":"포토샵·일러스트·인디자인으로 포스터, 광고, 상세페이지, 책자 디자인을 배웁니다.","learn":["포토샵·일러스트·인디자인","타이포그래피와 레이아웃","광고·상세페이지·브랜딩 실습"],"flow":["툴과 디자인 기본기","실제 의뢰처럼 작업","포트폴리오 완성"],"after":["편집·광고 디자이너","쇼핑몰 상세페이지 디자이너","GTQ 등 자격증"],"fit":"디자인 툴을 처음 배우는 분, 쇼핑몰·마케팅 디자인이 필요한 분","makes":[["브랜드 아이덴티티","로고·명함·패키지 한 세트"],["상세페이지","쇼핑몰 제품 상세페이지"],["포스터 시리즈","행사·전시 포스터"]]},{"id":"interior","name":"인테리어·제품","head":"상상한 공간을\n도면과 3D로","desc":"오토캐드 도면부터 스케치업·3D 렌더링까지, 인테리어와 제품 디자인에 필요한 툴을 배웁니다.","learn":["오토캐드 도면","스케치업·3D 모델링","실사 렌더링과 프레젠테이션"],"flow":["도면 기초","공간·제품 하나 설계","포트폴리오 완성"],"after":["인테리어 디자이너","제품 디자이너","전산응용건축제도 등 자격증"],"fit":"인테리어·건축·제품 쪽 진로를 생각하는 분, 실무 툴이 필요한 분","makes":[["원룸 인테리어 설계","도면부터 3D 렌더까지"],["카페 공간 디자인","콘셉트와 렌더링 이미지"],["제품 3D 모델","실제처럼 보이는 제품 렌더"]]},{"id":"webtoon","name":"웹툰·드로잉","head":"그리는 걸 좋아한다면\n작품으로 만들어 봐요","desc":"디지털 드로잉 기초부터 웹툰 연출, 캐릭터·일러스트 작업까지 배웁니다. AI를 섞은 비주얼 작업도 다뤄요.","learn":["디지털 드로잉 기초(클립스튜디오·포토샵)","캐릭터·배경·채색","웹툰 연출, AI 융합 비주얼 아트"],"flow":["드로잉 기본기","짧은 작품 완성","공모전·포트폴리오 준비"],"after":["웹툰 작가·어시스턴트","일러스트레이터","캐릭터·이모티콘 작가"],"fit":"그림을 좋아하지만 디지털은 처음인 분, 웹툰·일러스트로 일하고 싶은 분","makes":[["단편 웹툰","기획부터 완성까지 한 편"],["캐릭터 시트","내 캐릭터 설정과 표정"],["일러스트 포트폴리오","외주용 작업 모음"]]},{"id":"oa","name":"OA·자격증","head":"사무직 취업,\n엑셀부터 자신 있게","desc":"엑셀·한글·파워포인트 실무와 컴활·ITQ·전산회계 같은 자격증을 준비합니다.","learn":["엑셀 함수·표·보고서","한글·파워포인트 문서 작업","컴활·ITQ·전산회계 자격증"],"flow":["기초 문서 작업","실무 예제 반복","자격증 시험 대비"],"after":["사무·경리 직무 취업","자격증 취득","회사 업무 속도 향상"],"fit":"사무직 취업을 준비하는 분, 회사에서 엑셀 때문에 막히는 분","makes":[["실무 엑셀 보고서","매출·근태 정리표"],["자격증 합격","목표 자격증 준비"],["업무용 문서 세트","기획서·보고서 양식"]]},{"id":"startup","name":"창업 마스터","head":"내 일을 시작하고 싶다면\n필요한 것만 골라서","desc":"1인 창업, 스타트업, 프리랜서로 일하는 데 필요한 디자인·마케팅·AI 활용을 묶어서 배웁니다.","learn":["브랜딩·홍보물 직접 만들기","SNS·온라인 마케팅","AI로 혼자서도 일 줄이기"],"flow":["내 사업 방향 잡기","필요한 기술 집중 실습","실제 사업에 적용"],"after":["1인 창업 운영","프리랜서 활동","스타트업 실무"],"fit":"창업을 준비 중이거나 이미 시작한 분, 프리랜서로 독립하려는 분","makes":[["내 브랜드 패키지","로고·상세페이지·SNS 이미지"],["홍보 영상","가게·서비스 소개 숏폼"],["운영 자동화","AI로 줄인 반복 업무"]]}],"faq":[["상담 받으면 바로 등록해야 하나요?","아니요. 상담만 받고 돌아가셔도 괜찮습니다. 과정이 맞는지, 프로모션이 어떻게 적용되는지 확인하는 자리라고 생각하시면 돼요."],["전공자가 아니어도 따라갈 수 있나요?","수강생 상당수가 비전공자로 시작합니다. 기초부터 단계별로 진행해요."],["직장 다니면서도 들을 수 있나요?","평일 저녁반·주말반이 있는 과정이 많습니다. 원하는 시간대를 말씀해 주시면 맞는 반을 찾아 드려요."],["모르는 02 번호로 전화가 왔어요","학원 상담 전화는 02로 시작하는 학원 번호로 드려요. 받기 어려우셨다면 통화 편한 시간대만 카톡으로 남겨 주세요. 그 시간에 다시 연락드릴게요."],["상담은 얼마나 걸리나요?","보통 30분 안팎입니다. 전화 상담만 원하시면 원하는 시간에 짧게 해도 돼요."],["적성검사 결과는 얼마나 정확한가요?","가볍게 방향을 잡아 보는 검사예요. 결과 해설 상담에서 하고 싶은 일, 시간, 예산까지 같이 보면 훨씬 정확해져요."],["학원은 어디에 있나요?","홍대입구역 근처에 있습니다. 상담 시간을 골라 주시면 위치도 함께 안내해 드려요."]],"promo":{"title":"이달의 학원 프로모션","until":"","lead":"SBS아카데미 AIX 홍대에서 이번 달 진행하는 학원 자체 프로모션이에요. 대상인지 아닌지는 짧은 통화로 바로 확인해 드려요.","items":[{"k":"등록 프로모션","v":"이달 등록 혜택","p":"상담 후 이번 달 안에 등록하시는 분께 적용되는 학원 혜택이에요. 과정별 적용 내용은 상담 때 안내해 드려요.","hl":true},{"k":"과정 설계 프로모션","v":"함께 배우는 과정 혜택","p":"적성검사 결과에 맞춰 두 과정 이상을 이어서 설계하시면 함께 적용되는 혜택을 안내해 드려요."},{"k":"상담 프로모션","v":"적성검사 응시자 상담","p":"검사를 마친 분께는 결과 해설과 함께 나에게 맞는 프로모션 적용 방법을 정리해 드려요."}],"note":"프로모션은 학원 자체 혜택으로 기간과 인원이 정해져 있어요. 적용 대상과 조건은 상담에서 정확히 안내해 드려요."},"dfaq":{"ai":[["코딩을 전혀 몰라도 되나요?","네. 생성형 AI 활용부터 시작하고, 코딩은 필요한 만큼만 AI 도구로 배워요."],["나이가 있어도 따라갈 수 있나요?","AI 활용은 업무 경험이 있을수록 쓸 곳이 많아요. 지금 하시는 일에 맞춰 예제를 정해 드려요."]],"web":[["그림을 못 그려도 되나요?","웹·UIUX 디자인은 그림 실력보다 정리하는 감각이 더 중요해요. 툴 사용부터 차근차근 시작해요."],["코딩도 배워야 하나요?","필수는 아니에요. 원하시면 웹 퍼블리싱이나 AI 바이브코딩으로 직접 만드는 단계까지 이어서 배울 수 있어요."]],"video":[["컴퓨터 사양이 좋아야 하나요?","수업은 학원 장비로 진행해요. 집에서 연습할 때 필요한 사양은 상담 때 알려 드려요."],["유튜브 편집만 배워도 되나요?","네. 목적이 유튜브라면 편집 위주로, 모션그래픽까지 원하시면 이어서 배우는 순서로 짜 드려요."]],"cg":[["3D는 어렵지 않나요?","시간이 걸리는 분야는 맞아요. 대신 기초 모델링부터 단계별로 진행해서 결과물이 하나씩 쌓여요."],["게임 쪽으로도 갈 수 있나요?","3D 모델링은 영상·광고·게임에 두루 쓰여요. 원하는 방향에 맞춰 포트폴리오를 정해 드려요."]],"edit":[["디자인 전공이 아니어도 되나요?","포토샵·일러스트 기초부터 시작해요. 비전공자도 실무 결과물을 만들 수 있게 진행해요."],["자격증도 준비할 수 있나요?","GTQ 같은 그래픽 자격증을 함께 준비하는 방법도 상담 때 안내해 드려요."]],"interior":[["건축을 몰라도 되나요?","도면 읽는 법부터 배우니 처음이셔도 괜찮아요."],["자격증과 같이 준비할 수 있나요?","전산응용건축제도 같은 자격증을 함께 준비하는 방법도 상담 때 안내해 드려요."]],"webtoon":[["그림 실력이 부족해도 되나요?","디지털 드로잉 기초부터 시작해요. 지금 실력에 맞춰 단계를 정해 드려요."],["태블릿이 있어야 하나요?","수업은 학원 장비로 진행해요. 집에서 연습할 장비는 상담 때 추천해 드려요."]],"oa":[["컴퓨터를 거의 못 다뤄도 되나요?","파일 저장부터 차근차근 시작해요. 기초가 없어도 따라올 수 있게 진행해요."],["자격증 시험 일정도 알려 주나요?","목표 자격증에 맞춰 준비 순서와 시험 일정을 함께 안내해 드려요."]],"startup":[["아직 사업 아이템이 없어도 되나요?","네. 방향 잡기부터 함께 해요. 이미 하고 계시면 지금 사업에 바로 쓰는 내용 위주로 배워요."],["혼자서 다 할 수 있을까요?","디자인·홍보·AI 활용처럼 혼자 운영할 때 꼭 필요한 기술만 골라 배워요."]]}};
 const C = Object.assign({brand:"SBS아카데미 AIX 홍대", siteUrl:"", firebase:null, staffEmails:[]}, window.AIX_CONFIG||{});
 const DEPTS = [
- {id:"all",name:"통합",color:"#c8553d",file:"index.html"},
+ {id:"all",name:"통합",color:"#c8553d",file:"all.html"},
  {id:"ai",name:"AI 스킬업",color:"#4a7dff"},{id:"web",name:"웹·UIUX 디자인",color:"#12a05c"},{id:"video",name:"모션·영상편집",color:"#ff3b4f"},
  {id:"cg",name:"CG·특수효과",color:"#8b6cff"},{id:"edit",name:"시각·편집디자인",color:"#ff5a1f"},{id:"interior",name:"인테리어·제품",color:"#9a6a3e"},
  {id:"webtoon",name:"웹툰·드로잉",color:"#ff3e8a"},{id:"oa",name:"OA·자격증",color:"#1f8a5b"},{id:"startup",name:"창업 마스터",color:"#ff6b3d"}
@@ -275,19 +370,82 @@ function initFirebase(){
 function startLocal(){
   S.mode="local"; S.links=ls.get("aix_admin_links",{}); S.content=ls.get("aix_content_local",{}); S.ready=true; render();
 }
+let dataOn=false, unsubs=[];
 function startFb(){
   S.mode="fb";
+  auth.getRedirectResult().catch(e=>{ S.loginErr=loginMsg(e); render(true); });
   auth.onAuthStateChanged(u=>{
-    S.user=u||null;
+    S.user=u||null; S.role=null; S.me=null;
+    unsubs.forEach(f=>f()); unsubs=[]; dataOn=false;
     if(!u){ S.ready=true; render(); return; }
-    let first={l:true,v:true,r:true};
-    db.collection("guide_links").onSnapshot(s=>{ s.docChanges().forEach(c=>{ if(c.type==="removed") delete S.links[c.doc.id]; else S.links[c.doc.id]=c.doc.data(); }); first.l=false; S.ready=true; render(); }, err);
-    db.collection("guide_views").orderBy("start","desc").limit(1500).onSnapshot(s=>{
-      s.docChanges().forEach(c=>{ const v=c.doc.data(); if(!v.code) return; const prev=S.views[c.doc.id]; S.views[c.doc.id]=v; if(!first.v) notify(v,prev); });
-      first.v=false; render(); }, err);
-    db.collection("guide_content").onSnapshot(s=>{ s.docChanges().forEach(c=>{ if(c.type==="removed") delete S.content[c.doc.id]; else S.content[c.doc.id]=c.doc.data(); }); render(); }, ()=>{});
-    db.collection("guide_requests").orderBy("at","desc").limit(800).onSnapshot(s=>{ s.docChanges().forEach(c=>{ S.reqs[c.doc.id]=c.doc.data(); }); first.r=false; render(); }, err);
+    S.ready=false; render();
+    db.collection("guide_meta").doc("owner").get().then(o=>{
+      if(!o.exists){ S.role="setup"; S.ready=true; render(); return; }
+      if(o.data().uid===u.uid){ S.role="owner"; S.me={name:o.data().name||"",email:u.email}; startData(); return; }
+      unsubs.push(db.collection("guide_staff").doc(u.uid).onSnapshot(d=>{
+        if(!d.exists){ S.role="none"; S.ready=true; render(); return; }
+        const v=d.data(); S.me=v;
+        if(v.ok){ S.role="staff"; if(!dataOn) startData(); else render(); }
+        else { S.role="pending"; S.ready=true; render(); }
+      }, ()=>{ S.role="none"; S.ready=true; render(); }));
+    }).catch(()=>{ S.role="setup"; S.ready=true; render(); toast("<b>저장소에 연결하지 못했어요.</b> Firestore 데이터베이스를 만들었는지, 규칙을 게시했는지 확인해 주세요."); });
   });
+}
+function startData(){
+  dataOn=true;
+  if(S.me&&S.me.name&&!myMgr()) ls.set("aix_admin_mgr",S.me.name);
+  let first={v:true};
+  unsubs.push(db.collection("guide_links").onSnapshot(s=>{ s.docChanges().forEach(c=>{ if(c.type==="removed") delete S.links[c.doc.id]; else S.links[c.doc.id]=c.doc.data(); }); S.ready=true; render(); }, err));
+  unsubs.push(db.collection("guide_views").orderBy("start","desc").limit(1500).onSnapshot(s=>{
+    s.docChanges().forEach(c=>{ const v=c.doc.data(); if(!v.code) return; const prev=S.views[c.doc.id]; S.views[c.doc.id]=v; if(!first.v) notify(v,prev); });
+    first.v=false; render(); }, err));
+  unsubs.push(db.collection("guide_content").onSnapshot(s=>{ s.docChanges().forEach(c=>{ if(c.type==="removed") delete S.content[c.doc.id]; else S.content[c.doc.id]=c.doc.data(); }); render(); }, ()=>{}));
+  unsubs.push(db.collection("guide_requests").orderBy("at","desc").limit(800).onSnapshot(s=>{ s.docChanges().forEach(c=>{ S.reqs[c.doc.id]=c.doc.data(); }); render(); }, err));
+  if(S.role==="owner") unsubs.push(db.collection("guide_staff").onSnapshot(s=>{ S.staff={}; s.forEach(d=>S.staff[d.id]=Object.assign({uid:d.id},d.data())); render(); }, ()=>{}));
+}
+function loginMsg(e){
+  const c=(e&&e.code)||"", host=location.hostname;
+  const m={
+   "auth/unauthorized-domain":`Firebase 콘솔 → <b>Authentication → 설정(Settings) → 승인된 도메인</b>에 <b>${esc(host)}</b> 를 추가해 주세요.`,
+   "auth/operation-not-allowed":`Firebase 콘솔 → <b>Authentication → 로그인 방법</b>에서 <b>Google</b>을 '사용 설정'으로 바꾸고 저장해 주세요.`,
+   "auth/configuration-not-found":`Firebase 콘솔 → <b>Authentication</b>에서 '시작하기'를 누른 뒤 <b>Google</b> 로그인을 사용 설정해 주세요.`,
+   "auth/popup-closed-by-user":"로그인 창이 닫혔어요. 다시 눌러 주세요.",
+   "auth/cancelled-popup-request":"로그인 창이 닫혔어요. 다시 눌러 주세요.",
+   "auth/network-request-failed":"인터넷 연결을 확인하고 다시 시도해 주세요.",
+   "auth/invalid-api-key":"aix-config.js 의 apiKey 값이 맞는지 확인해 주세요.",
+   "auth/api-key-not-valid.-please-pass-a-valid-api-key.":"aix-config.js 의 apiKey 값이 맞는지 확인해 주세요."
+  };
+  return m[c] || `로그인하지 못했어요. 아래 코드를 알려 주시면 원인을 찾아 드릴게요.<br><code>${esc(c||String(e&&e.message||e))}</code>`;
+}
+function doLogin(){
+  const pv=new firebase.auth.GoogleAuthProvider(); pv.setCustomParameters({prompt:"select_account"});
+  S.loginErr="";
+  auth.signInWithPopup(pv).catch(e=>{
+    const c=(e&&e.code)||"";
+    if(c==="auth/popup-blocked"||c==="auth/operation-not-supported-in-this-environment"){ auth.signInWithRedirect(pv); return; }
+    S.loginErr=loginMsg(e); render(true);
+  });
+}
+function claimOwner(){
+  const name=($("#ownName")&&$("#ownName").value.trim())||"";
+  db.collection("guide_meta").doc("owner").set({uid:S.user.uid,email:S.user.email||"",name,at:new Date().toISOString()})
+    .then(()=>{ S.role="owner"; S.me={name,email:S.user.email}; ls.set("aix_admin_mgr",name); startData(); toast("관리자로 등록됐어요. 이제 직원들이 권한을 신청하면 '직원 관리'에서 승인하면 돼요."); })
+    .catch(()=>toast("<b>등록하지 못했어요.</b> 이미 다른 관리자가 있거나 규칙이 게시되지 않았어요."));
+}
+function applyStaff(){
+  const name=($("#apName")&&$("#apName").value.trim())||"";
+  if(!name){ $("#apName").focus(); toast("이름을 적어 주세요."); return; }
+  db.collection("guide_staff").doc(S.user.uid).set({email:S.user.email||"",name,ok:false,at:new Date().toISOString()})
+    .then(()=>toast("권한을 신청했어요. 관리자가 승인하면 바로 열려요.")).catch(()=>toast("<b>신청하지 못했어요.</b>"));
+}
+function staffPage(){
+  const list=Object.values(S.staff||{}).sort((a,b)=>(a.ok-b.ok)||(b.at||"").localeCompare(a.at||""));
+  const wait=list.filter(x=>!x.ok);
+  return `<div class="head"><div><h1>직원 관리</h1><p class="lead">직원이 관리 사이트에 구글로 로그인해 '권한 신청'을 하면 여기에 떠요. 승인한 사람만 학생 기록을 보고 링크를 발급할 수 있어요.</p></div></div>
+  <div class="panel"><p class="muted" style="margin:0 0 12px">관리자(나): <b style="color:var(--ink)">${esc((S.me&&S.me.name)||"")}</b> ${esc(S.user.email||"")}</p>
+  ${list.length?`<div class="list">${list.map(x=>`<div class="lrow"><div class="lmain srow" style="cursor:default"><div class="nm"><b>${esc(x.name||"(이름 없음)")}</b><span>${esc(x.email||"")}</span></div><div class="st"><span class="tag ${x.ok?"st-open":"st-want"}">${x.ok?"승인됨":"승인 대기"}</span></div><div class="muted">신청 ${ft(x.at)}</div>
+    <div class="sact">${x.ok?`<button class="btn ghost sm" data-sok="${x.uid}" data-v="0">권한 해제</button>`:`<button class="btn sm" data-sok="${x.uid}" data-v="1">승인</button>`}<button class="btn danger sm" data-sdel="${x.uid}">삭제</button></div></div></div>`).join("")}</div>`:`<div class="empty">아직 권한을 신청한 직원이 없어요. 직원에게 이 관리 사이트 주소를 알려 주고, 구글로 로그인해 '권한 신청'을 누르라고 해 주세요.</div>`}
+  ${wait.length?`<p class="muted" style="margin:12px 0 0">승인 대기 ${wait.length}명</p>`:""}</div>`;
 }
 function err(){ toast(`<b>기록을 불러오지 못했어요.</b> Firestore 규칙과 로그인 계정을 확인해 주세요.`); }
 function notify(v,prev){
@@ -432,7 +590,7 @@ const resultName = (r,dept) => !r ? "" : (DEPTS.some(d=>d.id===r) ? "통합 결�
 function counts(rs){ const c={all:rs.length,want:0,done:0,open:0,none:0}; rs.forEach(r=>c[r.st]++); c.seen=c.want+c.done+c.open; return c; }
 
 /* ---------- 화면 ---------- */
-function route(){ const h=location.hash.slice(1); if(h==="content") return "content"; return DEPTS.some(d=>d.id===h&&h!=="all") ? h : "home"; }
+function route(){ const h=location.hash.slice(1); if(h==="content") return "content"; if(h==="team") return "team"; return DEPTS.some(d=>d.id===h&&h!=="all") ? h : "home"; }
 function render(force){
   const ae=document.activeElement;
   if(!force && ae && $("#app").contains(ae) && /^(INPUT|TEXTAREA)$/.test(ae.tagName) && ae.id!=="fq"){ S.pending=true; return; }
@@ -449,14 +607,19 @@ function render(force){
   <header class="top"><div class="wrap">
     <div class="bar"><a class="brand" href="#">SBS AIX 홍대<span>링크 관리</span></a>
       <div class="who">${S.mode==="fb"?(S.user?`<i class="dot"></i><span class="em">${esc(S.user.email||"")}</span><button class="btn ghost sm" id="logout">로그아웃</button>`:`<i class="dot off"></i>로그인 필요`):`<i class="dot off"></i>기록 저장 공간 연결 전`}</div></div>
-    <nav class="tabs">${[{id:"home",name:"통합",color:"#c8553d"}].concat(DEPTS.filter(d=>d.id!=="all")).map(d=>`<a class="tab${r===d.id?" on":""}" href="#${d.id==="home"?"":d.id}" style="--dc:${d.color}"><i></i>${esc(d.name)}${(d.id==="home"?totalWant:wantBy[d.id])?`<b>${d.id==="home"?totalWant:wantBy[d.id]}</b>`:""}</a>`).join("")}<a class="tab edt${r==="content"?" on":""}" href="#content">내용 수정</a></nav>
+    <nav class="tabs">${[{id:"home",name:"통합",color:"#c8553d"}].concat(DEPTS.filter(d=>d.id!=="all")).map(d=>`<a class="tab${r===d.id?" on":""}" href="#${d.id==="home"?"":d.id}" style="--dc:${d.color}"><i></i>${esc(d.name)}${(d.id==="home"?totalWant:wantBy[d.id])?`<b>${d.id==="home"?totalWant:wantBy[d.id]}</b>`:""}</a>`).join("")}<a class="tab edt${r==="content"?" on":""}" href="#content">내용 수정</a>${S.role==="owner"?`<a class="tab${r==="team"?" on":""}" href="#team">직원 관리${Object.values(S.staff||{}).filter(x=>!x.ok).length?`<b>${Object.values(S.staff||{}).filter(x=>!x.ok).length}</b>`:""}</a>`:""}</nav>
   </div></header>
-  <main><div class="wrap">${gate() || (r==="home"?home(all):r==="content"?editPage():deptPage(r))}</div></main>`;
+  <main><div class="wrap">${gate() || (r==="home"?home(all):r==="content"?editPage():r==="team"?(S.role==="owner"?staffPage():home(all)):deptPage(r))}</div></main>`;
   if (keepFocus && $("#"+keepFocus)) { const el=$("#"+keepFocus); el.focus(); try{ if(caret!=null) el.setSelectionRange(caret,caret); }catch(e){} }
   window.scrollTo(0,scrollY);
 }
 function gate(){
-  if (S.mode==="fb" && !S.user) return `<div class="panel" style="max-width:520px;margin:40px auto;text-align:center"><h1>직원 로그인</h1><p class="lead" style="margin:8px auto 18px">학생 기록을 보려면 등록된 직원 구글 계정으로 로그인해 주세요.</p><button class="btn" id="login">구글 계정으로 로그인</button></div>`;
+  if (S.mode==="fb" && !S.user) return `<div class="panel" style="max-width:520px;margin:40px auto;text-align:center"><h1>직원 로그인</h1><p class="lead" style="margin:8px auto 18px">구글 계정으로 로그인해 주세요. 처음 쓰는 직원은 로그인한 뒤 '권한 신청'을 누르면 관리자가 승인해 줘요.</p><button class="btn" id="login">구글 계정으로 로그인</button>${S.loginErr?`<div class="warn" style="margin:18px 0 0;text-align:left">${S.loginErr}</div>`:""}</div>`;
+  if (S.mode==="fb" && S.role==="setup") return `<div class="panel" style="max-width:560px;margin:40px auto"><h1>처음 설정</h1><p class="lead" style="margin:8px 0 16px">아직 관리자가 없어요. 지금 로그인한 계정(<b>${esc(S.user.email||"")}</b>)을 <b>관리자</b>로 등록할게요. 관리자는 다른 직원의 권한을 승인할 수 있어요. <b>한 번 등록하면 바꿀 수 없으니</b> 본인 계정인지 확인해 주세요.</p>
+    <div class="f"><label for="ownName">내 이름 (담당자 이름으로 쓰여요)</label><input id="ownName" placeholder="예: 김태욱"></div><button class="btn" id="claim">관리자로 등록</button></div>`;
+  if (S.mode==="fb" && S.role==="none") return `<div class="panel" style="max-width:520px;margin:40px auto"><h1>권한 신청</h1><p class="lead" style="margin:8px 0 16px">${esc(S.user.email||"")} 계정은 아직 권한이 없어요. 이름을 적고 신청하면 관리자가 승인한 뒤 바로 쓸 수 있어요.</p>
+    <div class="f"><label for="apName">이름</label><input id="apName" placeholder="예: 김민영"></div><div style="display:flex;gap:8px"><button class="btn" id="apply">권한 신청</button><button class="btn ghost" id="logout2">다른 계정으로</button></div></div>`;
+  if (S.mode==="fb" && S.role==="pending") return `<div class="panel" style="max-width:520px;margin:40px auto;text-align:center"><h1>승인 기다리는 중</h1><p class="lead" style="margin:8px auto 16px">${esc((S.me&&S.me.name)||"")}님의 권한 신청이 접수됐어요. 관리자가 승인하면 이 화면이 저절로 바뀌어요.</p><button class="btn ghost" id="logout2">다른 계정으로</button></div>`;
   if (!S.ready) return `<p class="muted">불러오는 중…</p>`;
   return "";
 }
@@ -616,8 +779,12 @@ function openIssue(dept){
 /* ---------- 이벤트 ---------- */
 document.addEventListener("click", e=>{
   const t=e.target;
-  if (t.id==="login"){ auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(()=>toast("로그인하지 못했어요.")); return; }
-  if (t.id==="logout"){ auth.signOut(); return; }
+  if (t.id==="login"){ doLogin(); return; }
+  if (t.id==="logout"||t.id==="logout2"){ auth.signOut(); return; }
+  if (t.id==="claim"){ claimOwner(); return; }
+  if (t.id==="apply"){ applyStaff(); return; }
+  const so=t.closest("[data-sok]"); if(so){ db.collection("guide_staff").doc(so.dataset.sok).update({ok:so.dataset.v==="1"}).then(()=>toast(so.dataset.v==="1"?"승인했어요.":"권한을 해제했어요.")).catch(()=>toast("<b>바꾸지 못했어요.</b>")); return; }
+  const sd=t.closest("[data-sdel]"); if(sd){ if(sd.dataset.sure){ db.collection("guide_staff").doc(sd.dataset.sdel).delete().then(()=>toast("삭제했어요.")); } else { sd.dataset.sure="1"; sd.textContent="한 번 더"; } return; }
   const is=t.closest("[data-issue]"); if(is){ openIssue(is.dataset.issue); return; }
   if (t.closest("[data-close]") || t.id==="modal"){ $("#modal").hidden=true; render(true); return; }
   const tp=t.closest("[data-tpl]"); if(tp){ S.tpl=+tp.dataset.tpl; ls.set("aix_admin_tpl",S.tpl); document.querySelectorAll("[data-tpl]").forEach(c=>c.classList.toggle("on",+c.dataset.tpl===S.tpl)); return; }
