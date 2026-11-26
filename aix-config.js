@@ -1,4 +1,3 @@
-
 window.AIX_CONFIG = {
   brand: "SBS아카데미 AIX 홍대",
   phone: "",

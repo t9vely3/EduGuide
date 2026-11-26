@@ -320,7 +320,7 @@ summary{font-size:16px;padding-block:24px}details p{font-size:15px;line-height:1
 .card,.box,.stat,.deptcard,.kpi{background:#fff;border-color:var(--line);border-radius:10px;box-shadow:none}.modal{background:rgba(24,38,34,.45)}.modal .box{background:#fff}.toast{background:#203d32;color:white}.dot{box-shadow:none}.wrap{max-width:1360px}.btn{border-radius:7px}.btn.danger{background:#fff4f0;color:#9d382b;border-color:#e6bab0}th{background:#eef1e9;color:#59635e}td{border-color:var(--line)}.tag{color:#48614f;border-color:#bac9b9}.empty{color:var(--sub)}
 </style><style>
 h1{font-size:32px;margin-bottom:8px}h2{font-size:20px}.hero{background:#edf1e7;border:1px solid #cbd6c1;border-radius:10px}.hq input{background:#fff;border-radius:8px}.dpill{background:#fff;border-radius:6px;color:var(--sub)}.dpill.on{background:#203d32;border-color:#203d32}.btn.big{background:#203d32;border-color:#203d32;border-radius:8px}.warn{background:#fff7e5;border-color:#e3d2a7;color:#755d24}.warn b{color:#644b17}.titem,.qa{background:#f2f4ee;border-color:var(--line);border-radius:8px}.titem .tw em,.stat.hotb b,.nums .w b{color:#9c4934}.titem .tw em.d{color:#315f7b}.cell{background:#fff;border-radius:10px}.cell:before{height:2px}.edi,.edform,.todo,.board{border-radius:10px}.edform{background:#fff}.stat{padding:20px}.stats{gap:12px}.panel{padding:24px}.toast{box-shadow:0 8px 24px #172b2920}.modal .box{border-color:#c4cbc2}.hot{color:#9c4934}.err{color:#a93225}.tab.on:hover{color:white}
-</style><style>.c3,.pv,.lk,.ans li{background:#f1f3ed;border-radius:8px}.toast{background:none}.toast div{background:#203d32;color:#fff;border-color:#365a45}.chip.on{color:#fff}.btn.danger:hover{background:#f9e5dd}</style></head>
+</style><style>.c3,.pv,.lk,.ans li{background:#f1f3ed;border-radius:8px}.toast{background:none}.toast div{background:#203d32;color:#fff;border-color:#365a45}.chip.on{color:#fff}.btn.danger:hover{background:#f9e5dd}</style><style>.aix-team{white-space:nowrap;text-decoration:none}.aix-teamstats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 18px}.aix-teamstats>div{padding:16px;border:1px solid #dce4dc;border-radius:14px;background:#f0f5ef;font-size:13px}.aix-teamstats strong{display:block;font-size:24px;color:#234e3e;margin-top:5px}@media(max-width:650px){.who{flex-wrap:wrap;justify-content:flex-end}.aix-teamstats{gap:6px}.aix-teamstats>div{padding:9px;font-size:11px}.aix-teamstats strong{font-size:19px}}</style></head>
 <body>
 <div id="app"></div>
 <div class="toast" id="toast"></div>
@@ -370,38 +370,39 @@ function initFirebase(){
 function startLocal(){
   S.mode="local"; S.links=ls.get("aix_admin_links",{}); S.content=ls.get("aix_content_local",{}); S.ready=true; render();
 }
-let dataOn=false, unsubs=[];
+let dataOn=false, unsubs=[], dataUnsubs=[];
+function stopData(){ dataUnsubs.forEach(f=>f()); dataUnsubs=[]; dataOn=false; S.links={}; S.views={}; S.reqs={}; S.content={}; S.staff={}; S.open=null; S.made=[]; S.preview=null; }
 function startFb(){
   S.mode="fb";
   auth.getRedirectResult().catch(e=>{ S.loginErr=loginMsg(e); render(true); });
   auth.onAuthStateChanged(u=>{
     S.user=u||null; S.role=null; S.me=null;
-    unsubs.forEach(f=>f()); unsubs=[]; dataOn=false;
+    unsubs.forEach(f=>f()); unsubs=[]; stopData();
     if(!u){ S.ready=true; render(); return; }
     S.ready=false; render();
     db.collection("guide_meta").doc("owner").get().then(o=>{
       if(!o.exists){ S.role="setup"; S.ready=true; render(); return; }
       if(o.data().uid===u.uid){ S.role="owner"; S.me={name:o.data().name||"",email:u.email}; startData(); return; }
       unsubs.push(db.collection("guide_staff").doc(u.uid).onSnapshot(d=>{
-        if(!d.exists){ S.role="none"; S.ready=true; render(); return; }
+        if(!d.exists){ stopData(); S.role="none"; S.ready=true; render(); return; }
         const v=d.data(); S.me=v;
         if(v.ok){ S.role="staff"; if(!dataOn) startData(); else render(); }
-        else { S.role="pending"; S.ready=true; render(); }
-      }, ()=>{ S.role="none"; S.ready=true; render(); }));
+        else { stopData(); S.role="pending"; S.ready=true; render(true); }
+      }, ()=>{ stopData(); S.role="none"; S.ready=true; render(true); }));
     }).catch(()=>{ S.role="setup"; S.ready=true; render(); toast("<b>저장소에 연결하지 못했어요.</b> Firestore 데이터베이스를 만들었는지, 규칙을 게시했는지 확인해 주세요."); });
   });
 }
 function startData(){
   dataOn=true;
-  if(S.me&&S.me.name&&!myMgr()) ls.set("aix_admin_mgr",S.me.name);
+  if(S.me&&S.me.name) ls.set("aix_admin_mgr",S.me.name);
   let first={v:true};
-  unsubs.push(db.collection("guide_links").onSnapshot(s=>{ s.docChanges().forEach(c=>{ if(c.type==="removed") delete S.links[c.doc.id]; else S.links[c.doc.id]=c.doc.data(); }); S.ready=true; render(); }, err));
-  unsubs.push(db.collection("guide_views").orderBy("start","desc").limit(1500).onSnapshot(s=>{
+  dataUnsubs.push(db.collection("guide_links").onSnapshot(s=>{ s.docChanges().forEach(c=>{ if(c.type==="removed") delete S.links[c.doc.id]; else S.links[c.doc.id]=c.doc.data(); }); S.ready=true; render(); }, err));
+  dataUnsubs.push(db.collection("guide_views").orderBy("start","desc").limit(1500).onSnapshot(s=>{
     s.docChanges().forEach(c=>{ const v=c.doc.data(); if(!v.code) return; const prev=S.views[c.doc.id]; S.views[c.doc.id]=v; if(!first.v) notify(v,prev); });
     first.v=false; render(); }, err));
-  unsubs.push(db.collection("guide_content").onSnapshot(s=>{ s.docChanges().forEach(c=>{ if(c.type==="removed") delete S.content[c.doc.id]; else S.content[c.doc.id]=c.doc.data(); }); render(); }, ()=>{}));
-  unsubs.push(db.collection("guide_requests").orderBy("at","desc").limit(800).onSnapshot(s=>{ s.docChanges().forEach(c=>{ S.reqs[c.doc.id]=c.doc.data(); }); render(); }, err));
-  if(S.role==="owner") unsubs.push(db.collection("guide_staff").onSnapshot(s=>{ S.staff={}; s.forEach(d=>S.staff[d.id]=Object.assign({uid:d.id},d.data())); render(); }, ()=>{}));
+  dataUnsubs.push(db.collection("guide_content").onSnapshot(s=>{ s.docChanges().forEach(c=>{ if(c.type==="removed") delete S.content[c.doc.id]; else S.content[c.doc.id]=c.doc.data(); }); render(); }, ()=>{}));
+  dataUnsubs.push(db.collection("guide_requests").orderBy("at","desc").limit(800).onSnapshot(s=>{ s.docChanges().forEach(c=>{ S.reqs[c.doc.id]=c.doc.data(); }); render(); }, err));
+  if(S.role==="owner") dataUnsubs.push(db.collection("guide_staff").onSnapshot(s=>{ S.staff={}; s.forEach(d=>S.staff[d.id]=Object.assign({uid:d.id},d.data())); render(); }, ()=>{S.staffError=true; render(true);}));
 }
 function loginMsg(e){
   const c=(e&&e.code)||"", host=location.hostname;
@@ -441,8 +442,9 @@ function applyStaff(){
 function staffPage(){
   const list=Object.values(S.staff||{}).sort((a,b)=>(a.ok-b.ok)||(b.at||"").localeCompare(a.at||""));
   const wait=list.filter(x=>!x.ok);
-  return `<div class="head"><div><h1>직원 관리</h1><p class="lead">직원이 관리 사이트에 구글로 로그인해 '권한 신청'을 하면 여기에 떠요. 승인한 사람만 학생 기록을 보고 링크를 발급할 수 있어요.</p></div></div>
-  <div class="panel"><p class="muted" style="margin:0 0 12px">관리자(나): <b style="color:var(--ink)">${esc((S.me&&S.me.name)||"")}</b> ${esc(S.user.email||"")}</p>
+  const active=list.length-wait.length;
+  return `<div class="head"><div><h1>멘토 계정 관리</h1><p class="lead">직원이 관리 사이트에 구글로 로그인해 '권한 신청'을 하면 여기에 떠요. 승인한 사람만 학생 기록을 보고 링크를 발급할 수 있어요.</p></div></div>
+  <div class="aix-teamstats"><div>전체 멘토 <strong>${list.length}명</strong></div><div>승인 대기 / 제한 <strong>${wait.length}명</strong></div><div>승인 완료 <strong>${active}명</strong></div></div>${S.staffError?`<p class="warn">직원 목록을 불러오지 못했습니다. 권한 및 Firestore 규칙을 확인하세요.</p>`:""}<div class="panel"><p class="muted" style="margin:0 0 12px">관리자(나): <b style="color:var(--ink)">${esc((S.me&&S.me.name)||"")}</b> ${esc(S.user.email||"")}</p>
   ${list.length?`<div class="list">${list.map(x=>`<div class="lrow"><div class="lmain srow" style="cursor:default"><div class="nm"><b>${esc(x.name||"(이름 없음)")}</b><span>${esc(x.email||"")}</span></div><div class="st"><span class="tag ${x.ok?"st-open":"st-want"}">${x.ok?"승인됨":"승인 대기"}</span></div><div class="muted">신청 ${ft(x.at)}</div>
     <div class="sact">${x.ok?`<button class="btn ghost sm" data-sok="${x.uid}" data-v="0">권한 해제</button>`:`<button class="btn sm" data-sok="${x.uid}" data-v="1">승인</button>`}<button class="btn danger sm" data-sdel="${x.uid}">삭제</button></div></div></div>`).join("")}</div>`:`<div class="empty">아직 권한을 신청한 직원이 없어요. 직원에게 이 관리 사이트 주소를 알려 주고, 구글로 로그인해 '권한 신청'을 누르라고 해 주세요.</div>`}
   ${wait.length?`<p class="muted" style="margin:12px 0 0">승인 대기 ${wait.length}명</p>`:""}</div>`;
@@ -482,7 +484,7 @@ function parseLine(line){
 }
 function msgFor(l){ const tpl=TPL.find(x=>x[0]===l.tpl)||TPL[0]; return tpl[1](l.name||"")+"\n\n"+linkUrl(l); }
 function newLink(o){ const l={code:code5(),name:o.name||"",memo:o.memo||"",mgr:o.mgr||"",dept:o.dept,tpl:TPL[S.tpl][0],at:new Date().toISOString(),handled:"미연락",note:""}; saveLink(l); return l; }
-function myMgr(){ return ls.get("aix_admin_mgr",""); }
+function myMgr(){ return S.mode==="fb" ? ((S.me&&S.me.name)||"") : ls.get("aix_admin_mgr",""); }
 function quickIssue(dept, inputEl){
   const name=(inputEl&&inputEl.value||"").trim();
   const l=newLink({name,dept,mgr:myMgr()});
@@ -499,7 +501,7 @@ function quickBar(dept){
 }
 function tplBar(){
   return `<div class="tplbar"><span>보낼 문구</span><div class="chips">${TPL.map((t,i)=>`<button type="button" class="chip${S.tpl===i?" on":""}" data-tpl="${i}">${esc(t[0])}</button>`).join("")}</div>
-    <span class="mgrset">담당자 <input id="meMgr" value="${esc(myMgr())}" placeholder="내 이름"></span></div>`;
+    <span class="mgrset">담당자 <input id="meMgr" ${S.mode==="fb"?"readonly":""} value="${esc(myMgr())}" placeholder="내 이름"></span></div>`;
 }
 
 /* ---------- 내용 수정 ---------- */
@@ -606,8 +608,8 @@ function render(force){
   $("#app").innerHTML = `
   <header class="top"><div class="wrap">
     <div class="bar"><a class="brand" href="#">SBS AIX 홍대<span>링크 관리</span></a>
-      <div class="who">${S.mode==="fb"?(S.user?`<i class="dot"></i><span class="em">${esc(S.user.email||"")}</span><button class="btn ghost sm" id="logout">로그아웃</button>`:`<i class="dot off"></i>로그인 필요`):`<i class="dot off"></i>기록 저장 공간 연결 전`}</div></div>
-    <nav class="tabs">${[{id:"home",name:"통합",color:"#c8553d"}].concat(DEPTS.filter(d=>d.id!=="all")).map(d=>`<a class="tab${r===d.id?" on":""}" href="#${d.id==="home"?"":d.id}" style="--dc:${d.color}"><i></i>${esc(d.name)}${(d.id==="home"?totalWant:wantBy[d.id])?`<b>${d.id==="home"?totalWant:wantBy[d.id]}</b>`:""}</a>`).join("")}<a class="tab edt${r==="content"?" on":""}" href="#content">내용 수정</a>${S.role==="owner"?`<a class="tab${r==="team"?" on":""}" href="#team">직원 관리${Object.values(S.staff||{}).filter(x=>!x.ok).length?`<b>${Object.values(S.staff||{}).filter(x=>!x.ok).length}</b>`:""}</a>`:""}</nav>
+      <div class="who">${S.mode==="fb"?(S.user?`<i class="dot"></i><span class="em">${esc((S.me&&S.me.name)||S.user.email||"")} ${S.role==="owner"?"· 최고 관리자":S.role==="staff"?"· 멘토":""}</span>${S.role==="owner"?`<a class="btn sm aix-team" href="#team">멘토 계정 관리${Object.values(S.staff||{}).filter(x=>!x.ok).length?` · ${Object.values(S.staff||{}).filter(x=>!x.ok).length}명 대기`:""}</a>`:""}<button class="btn ghost sm" id="logout">로그아웃</button>`:`<i class="dot off"></i>로그인 필요`):`<i class="dot off"></i>기록 저장 공간 연결 전`}</div></div>
+    <nav class="tabs">${[{id:"home",name:"통합",color:"#c8553d"}].concat(DEPTS.filter(d=>d.id!=="all")).map(d=>`<a class="tab${r===d.id?" on":""}" href="#${d.id==="home"?"":d.id}" style="--dc:${d.color}"><i></i>${esc(d.name)}${(d.id==="home"?totalWant:wantBy[d.id])?`<b>${d.id==="home"?totalWant:wantBy[d.id]}</b>`:""}</a>`).join("")}<a class="tab edt${r==="content"?" on":""}" href="#content">내용 수정</a>${S.role==="owner"?`<a class="tab${r==="team"?" on":""}" href="#team">멘토 계정 관리${Object.values(S.staff||{}).filter(x=>!x.ok).length?`<b>${Object.values(S.staff||{}).filter(x=>!x.ok).length}</b>`:""}</a>`:""}</nav>
   </div></header>
   <main><div class="wrap">${gate() || (r==="home"?home(all):r==="content"?editPage():r==="team"?(S.role==="owner"?staffPage():home(all)):deptPage(r))}</div></main>`;
   if (keepFocus && $("#"+keepFocus)) { const el=$("#"+keepFocus); el.focus(); try{ if(caret!=null) el.setSelectionRange(caret,caret); }catch(e){} }
@@ -637,7 +639,7 @@ function issueHero(fixedDept){
     <div class="hstep go"><span class="n">3</span><b>보내기</b>
       <div class="hq"><input data-qname="${qd}" id="heroName" placeholder="학생 이름 (안 써도 돼요)" aria-label="학생 이름"><button class="btn big" data-quick="${qd}">발급하고 문구 복사</button></div></div>
     <div class="hfoot"><span>복사된 문구를 카톡·문자에 붙여 넣으면 끝이에요.</span><button type="button" class="linkbtn" data-issue="${fixedDept||"pick"}">여러 명이면 DB 목록 붙여넣기 →</button>
-      <span class="mgrset">담당자 <input id="meMgr" value="${esc(myMgr())}" placeholder="내 이름"></span></div>
+      <span class="mgrset">담당자 <input id="meMgr" ${S.mode==="fb"?"readonly":""} value="${esc(myMgr())}" placeholder="내 이름"></span></div>
   </section>`;
 }
 function todoHTML(rs){
